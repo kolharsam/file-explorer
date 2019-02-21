@@ -80,7 +80,7 @@
     outline: 0;
 }
 
-.sidebar-item-extend .clicked {
+.sidebar-item-extend .clicked {    /* TODO: Doesn't work as intended */
     transform: rotate(180deg);
     transition-delay: 500ms;
 }
