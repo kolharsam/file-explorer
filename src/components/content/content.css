@@ -1,0 +1,8 @@
+.content {
+    float: right;
+    width: calc(100% - 256px);
+    background: #fff;
+    height: 100vh;
+    padding: 45px 15px;
+    margin: 0 0 0 0;
+}
