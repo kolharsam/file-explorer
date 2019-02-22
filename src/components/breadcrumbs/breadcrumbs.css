@@ -19,3 +19,7 @@
     padding: 8px;
     content: "/\00a0";
 }
+
+.list-item:last-child {
+    color: #000;
+}

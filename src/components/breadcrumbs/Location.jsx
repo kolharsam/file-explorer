@@ -27,7 +27,13 @@ class CurrentPageLocation extends Component {
         
         // this part of the top-link for the arrow next to the breadcrumbs.
         let topLink = '/';
-        path.pop();
+
+        if (path[path.length - 1] === '') {  // bug fix for nested routes.
+            path.pop();
+            path.pop();
+        } else {
+            path.pop();
+        }
         
         if (path.length !== 0) {
             path.forEach((link) => {
