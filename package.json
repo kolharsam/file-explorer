@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@githubprimer/octicons-react": "^8.4.2",
     "js-search": "^1.4.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.2",

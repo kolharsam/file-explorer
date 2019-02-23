@@ -32,7 +32,7 @@ const Routes = [
         component: () => <DocsAndWork />,
     },
     {
-        path: '/docs/work',
+        path: '/docs/work', 
         component: () => <Work />
     }
 ];

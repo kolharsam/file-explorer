@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import Breadcumbs from '../components/breadcrumbs/Breadcrumbs';
+import PageContent from './page-content/PageContent';
 
-import '../styles/pages.css';
 
 class Work extends Component {
     render() {
         return (
             <React.Fragment>
                 <Breadcumbs />
-                <h2 className="page-content">This is work page.</h2>
+                <PageContent />
             </React.Fragment>
         );
     }

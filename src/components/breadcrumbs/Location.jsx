@@ -36,10 +36,19 @@ class CurrentPageLocation extends Component {
         }
         
         if (path.length !== 0) {
-            path.forEach((link) => {
-                topLink += link;
-                topLink += '/'
-            });
+            // path.forEach((link) => {
+            //     topLink += link;     // not using this as it gives a TypeError: Invalid attempt to spread non-iterable instance when rendering the required icons for the page.
+            //     topLink += '/'
+            // });
+
+            for(let iterable = 0;iterable<path.length;iterable++) {
+                
+                topLink += path[iterable];
+                
+                if (iterable !== path.length - 1) {
+                    topLink += '/';
+                }
+            }
         }
 
         this.setState({topLink: topLink});
