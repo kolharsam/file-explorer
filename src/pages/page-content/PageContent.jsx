@@ -16,10 +16,12 @@ class PrePageContent extends Component {
         }
         this.setFilesToRender = this.setFilesToRender.bind(this);
         this.iconSetter = this.iconSetter.bind(this);
+        this.handleDoubleClick = this.handleDoubleClick.bind(this);
     }
 
     setFilesToRender() {
         let currentElement = {};
+        
         for (let iterator = 0; iterator < Files.length; iterator++) {
             if (Files[iterator].path === this.state.curPath) {
                 currentElement = Files[iterator];
@@ -36,12 +38,12 @@ class PrePageContent extends Component {
         this.setFilesToRender();
     }
 
-    iconSetter(fileType, fileClass) {
+    iconSetter(fileType, fileClass, fileLink) {
         let returnIcon;
 
         if (fileType === 'folder') {
             returnIcon = (<Octicon icon={FileDirectory} height={72} width={51} />);
-        } else if (fileType === 'file') { // although it is pretty obvious.
+        } else if (fileType === 'file') { // although it is obvious.
             switch (fileClass) {
                 case 'image':
                     returnIcon = (<Octicon icon={FileMedia} height={72} width={51} />);
@@ -73,10 +75,18 @@ class PrePageContent extends Component {
             return undefined;
         } else {
             return (
-                <span className="icon">
+                <span className="icon" onDoubleClick={(e) => {this.handleDoubleClick(fileLink, e)}}>
                     {returnIcon}
                 </span>
             );
+        }
+    }
+
+    handleDoubleClick(fileLink, event) {
+        event.preventDefault();
+
+        if (fileLink !== '') {
+            this.props.history.push(fileLink);
         }
     }
 
@@ -89,7 +99,7 @@ class PrePageContent extends Component {
                         this.state.filesToRender.map((content, index) => {
                             return (
                                 <div className="grid-item" key={index}>
-                                    {this.iconSetter(content.type, content.class)}
+                                    {this.iconSetter(content.type, content.class, content.linkTo)}
                                     <span className="file-name">{content.filename}</span>
                                 </div>
                             )
