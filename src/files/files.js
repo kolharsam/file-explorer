@@ -106,7 +106,7 @@ const Files = [
                 createdDate: '7th Apr, 2018',
             },
             {
-                filename: 'vid4.mp4',
+                filename: 'vid3.mp4',
                 type: 'file',
                 size: '524kB',
                 class: 'video',

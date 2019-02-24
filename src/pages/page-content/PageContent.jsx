@@ -15,7 +15,7 @@ class PrePageContent extends Component {
         this.state = {
             curPath: props.location.pathname,
             filesToRender: [],
-            showMenu: []
+            showMenu: [],
         }
         this.setFilesToRender = this.setFilesToRender.bind(this);
         this.fileSetter = this.fileSetter.bind(this);
@@ -47,7 +47,7 @@ class PrePageContent extends Component {
         this.setFilesToRender();
     }
 
-    fileSetter(fileType, fileClass, fileLink, fileContent) {
+    fileSetter(fileType, fileClass) {
         let returnIcon;
 
         if (fileType === 'folder') {
@@ -151,10 +151,23 @@ class PrePageContent extends Component {
                                         onDoubleClick={(e) => { this.handleDoubleClick(content.linkTo, e) }}
                                         onContextMenu={(e) => { this.handleRightClick(e, index) }}
                                     >
-                                        {this.fileSetter(content.type, content.class, content.linkTo, content)}
+                                        {this.fileSetter(content.type, content.class)}
                                     </div>
                                     <span className="file-name">{content.filename}</span>
-                                    {this.state.showMenu[index] ? <RightClickMenu show={this.state.showMenu[index]} /> : undefined}
+                                    {
+                                        this.state.showMenu[index] ? 
+                                            <RightClickMenu 
+                                                show={this.state.showMenu[index]}
+                                                fileName={content.filename}
+                                                fileType={content.type}
+                                                fileSize={content.size}
+                                                fileCreatorName={content.creatorName}
+                                                fileCreatedDate={content.createdDate}
+                                                linkTo={content.linkTo} 
+                                            /> 
+                                        : 
+                                            undefined
+                                    }
                                 </div>
                             )
                         })
