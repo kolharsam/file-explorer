@@ -5,7 +5,7 @@
     grid-template-columns: repeat(4, 150px);
     grid-template-rows: 80px auto 80px;
     grid-column-gap: 20px;
-    grid-row-gap: 45px;
+    grid-row-gap: 65px;
     align-items: stretch;
 }
 
@@ -16,7 +16,15 @@
 }
 
 .icon {
-    margin: 12px 22px 12px 23px;
+    margin: 12px 22px 9px 23px;
+}
+
+.icon-blue {
+    margin: 12px 22px 9px 23px;
+    padding-right: 12px;
+    padding-left: 12px;
+    background: #E6F5FF;
+    border-radius: 8px;
 }
 
 .icon:hover {

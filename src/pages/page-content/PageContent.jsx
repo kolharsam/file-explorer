@@ -147,7 +147,7 @@ class PrePageContent extends Component {
                             return (
                                 <div className="grid-item" key={index}>
                                     <div
-                                        className="icon"
+                                        className={this.state.showMenu[index] ? "icon-blue" : "icon"}
                                         onDoubleClick={(e) => { this.handleDoubleClick(content.linkTo, e) }}
                                         onContextMenu={(e) => { this.handleRightClick(e, index) }}
                                     >
