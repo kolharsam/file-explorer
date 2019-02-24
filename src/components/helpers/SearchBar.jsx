@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import '../../styles/searchbar.css';
+
 class SearchBar extends Component {
     constructor(props) {
         super(props);
@@ -21,14 +23,14 @@ class SearchBar extends Component {
     render () {
         return (
             <React.Fragment>
-                <input 
-                    type="text" 
-                    ref="searchText" 
-                    style={{border: '1px solid #DDE0E4', borderRadius: '8px', height: '32px', width: '204px', backgroundImage: './search.png', paddingRight: '30px'}} 
-                    onChange={(e) => {this.handleOnChange(e)}}
-                    value={this.state.searchText}
-                    placeholder="Search for anything"
-                />
+                    <i class="fas fa-search" id="searchIcon"></i>
+                    <input 
+                        type="text"
+                        style={{ border: '1px solid #DDE0E4', borderRadius: '8px', height: '32px', width: '204px', paddingLeft: '17px'}} 
+                        onChange={(e) => {this.handleOnChange(e)}}
+                        value={this.state.searchText}
+                        placeholder="Search for anything"
+                    />
             </React.Fragment>
         );
     }

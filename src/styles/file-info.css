@@ -1,19 +1,1 @@
-.popup {
-    display: block; 
-    top: 0;
-    left: 0;
-    margin: auto;
-    padding-top: 100px;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
 
-.popup_inner {
-    border: 2px solid #000;
-    position: absolute;
-    width: 316px;
-    height: 395px;
-    margin: auto;
-    background: white;
-}
