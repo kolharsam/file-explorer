@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import Octicon, {X} from '@githubprimer/octicons-react';
+//import PropTypes from 'prop-types';
+//import Octicon, {X} from '@githubprimer/octicons-react';
 
 import '../../styles/file-info.css';
 
