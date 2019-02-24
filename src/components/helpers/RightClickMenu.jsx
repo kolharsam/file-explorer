@@ -2,34 +2,39 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
+import FileInfoPopup from './FileInfo';
+
 import '../../styles/context-menu.css';
 
 class RightClickMenu extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            showMenu: props.show
+            showMenu: props.show,
+            showInfoPopup: false
         }
 
         this.onClickOpen = this.onClickOpen.bind(this);
-        this.onClickGetInfo = this.onClickGetInfo.bind(this);
+        this.showGetInfo = this.showGetInfo.bind(this);
+        this.hideGetinfo = this.hideGetinfo.bind(this);
         this.onClickDelete = this.onClickDelete.bind(this);
     }
 
     onClickOpen () {
-
+        // TODO: to open popup for the rest of the files.
     }
 
-    onClickGetInfo () {
+    showGetInfo () {
+        this.setState({showInfoPopup: true});
+    }
 
+    hideGetinfo () {
+        this.setState({ showInfoPopup: false });
     }
 
     onClickDelete () {
 
-    }
-
-    componentWillMount() {
-        console.log(this.props);
     }
 
     render () {
@@ -55,8 +60,8 @@ class RightClickMenu extends Component {
                                             </div>
                                         </div>
                             }
-                            <div className="option" onClick={this.onClickGetInfo}>
-                                <div className="menu-text">Get Info</div>
+                            <div className="option" onClick={this.showGetInfo}>
+                                    <div className="menu-text">Get Info</div>
                             </div>
                             <div className="option" onClick={this.onClickDelete}>
                                 <div className="menu-text">Delete</div>
@@ -65,6 +70,11 @@ class RightClickMenu extends Component {
                         ) 
                     : null
                 }
+                {this.state.showModal ? (
+                    <FileInfoPopup onClose={this.hideGetinfo}>
+                        This is the secret modal message!
+                    </FileInfoPopup>
+                ) : null}
             </React.Fragment> 
         );  
     }
@@ -77,7 +87,7 @@ RightClickMenu.propTypes = {
     fileSize: PropTypes.string.isRequired,
     fileCreatorName: PropTypes.string.isRequired,
     fileCreatedDate: PropTypes.string.isRequired,
-    linkTo: PropTypes.string.isRequired,
+    linkTo: PropTypes.string,
 }
 
 export default RightClickMenu;

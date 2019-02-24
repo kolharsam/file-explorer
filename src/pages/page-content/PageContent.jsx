@@ -5,6 +5,8 @@ import { withRouter } from 'react-router';
 import Files from '../../files/files';
 import '../../styles/pages.css';
 
+import AddNewFileFolder from '../../components/helpers/AddNewFileFolder';
+
 // helper components
 import RightClickMenu from '../../components/helpers/RightClickMenu';
 
@@ -172,6 +174,9 @@ class PrePageContent extends Component {
                             )
                         })
                     }
+                    <div className="grid-item">
+                        <AddNewFileFolder />
+                    </div>
                 </div>
             </React.Fragment>
         );

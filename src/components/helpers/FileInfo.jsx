@@ -1,65 +1,142 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Octicon, {X} from '@githubprimer/octicons-react';
 
 import '../../styles/file-info.css';
 
-// class App extends React.Component {
-//     state = { show: false }
+const modalRoot = document.getElementById('modal-root');
 
-//     showModal = () => {
-//         this.setState({ show: true });
-//     }
 
-//     hideModal = () => {
-//         this.setState({ show: false });
-//     }
+class FileInfoPopup extends Component {
+    render() {
+        return ReactDOM.createPortal(
+            <div
+                style={{
+                    position: 'absolute',
+                    top: '0',
+                    bottom: '0',
+                    left: '0',
+                    right: '0',
+                    display: 'grid',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: '30px'
+                }}
+                onClick={this.props.onClose}
+            >
+                <div
+                    style={{
+                        padding: 20,
+                        background: '#fff',
+                        borderRadius: '2px',
+                        display: 'inline-block',
+                        minHeight: '300px',
+                        margin: '1rem',
+                        position: 'relative',
+                        minWidth: '300px',
+                        boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
+                        justifySelf: 'center',
+                    }}
+                >
+                    {this.props.children}
+                    <hr />
+                    <button onClick={this.props.onClose}>Close</button>
+                </div>
+            </div>,
+            modalRoot,
+        )
+    }
+}
 
+// FileInfoPopup.propTypes = {
+//     show: PropTypes.bool.isRequired,
+//     handleClose: PropTypes.func.isRequired
+// };
+
+export default FileInfoPopup;
+
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+
+// class Modal extends React.Component {
 //     render() {
-//         return (
-//             <main>
-//                 <h1>React Modal</h1>
-//                 <Modal show={this.state.show} handleClose={this.hideModal} >
-//                     <p>Modal</p>
-//                     <p>Data</p>
-//                 </Modal>
-//                 <button type='button' onClick={this.showModal}>Open</button>
-//             </main>
+//         return ReactDOM.createPortal(
+//             <div
+//                 style={{
+//                     position: 'absolute',
+//                     top: '0',
+//                     marginLeft: '120px',
+//                     marginTop: '320px',
+//                     display: 'grid',
+//                     justifyContent: 'center',
+//                     alignItems: 'center',
+//                 }}
+//                 onClick={this.props.onClose}
+//             >
+//                 <div
+//                     style={{
+//                         padding: 20,
+//                         background: '#fff',
+//                         borderRadius: '2px',
+//                         display: 'inline-block',
+//                         minHeight: '300px',
+//                         margin: '1rem',
+//                         position: 'relative',
+//                         minWidth: '300px',
+//                         boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
+//                         justifySelf: 'center',
+//                     }}
+//                 >
+//                     {this.props.children}
+//                     <hr />
+//                     <button onClick={this.props.onClose}>Close</button>
+//                 </div>
+//             </div>,
+//             modalRoot,
 //         )
 //     }
 // }
 
-class FileInfoPopup extends Component {
-    constructor(props) {
-        super(props);
-        this.showOrHide = this.props.show ? 'file-info-popup display' : 'file-info-popup hide';
-    }
-    
-    render() {
-        return (
-            <React.Fragment>
-                <div className={this.showOrHide}>
-                    <section className='file-info-popup-main'>
-                        <span className="top">
-                            <span className="inner-text">
-                                File Info
-                            </span>
-                            <span className="close-button" onClick={this.props.handleClose}>
-                                <Octicon icon={X} width={24} height={24} />
-                            </span>
-                        </span>
-                        {this.props.children}
-                    </section>
-                </div>
-            </React.Fragment>
-        );
-    }
-}
+// class App extends React.Component {
+//   state = {showModal: false}
+//   handleShowMessageClick = () => this.setState({showModal: true})
+//   handleCloseModal = () => this.setState({showModal: false})
+//   render() {
+//     return (
+//       <div
+//         style={{
+//           height: '100%',
+//           display: 'grid',
+//           justifyContent: 'center',
+//           alignItems: 'center',
+//         }}
+//       >
+//         <div
+//           style={{
+//             maxWidth: 400,
+//             position: 'relative',
+//           }}
+//         >
+//           <h1>My App</h1>
+//           <p>
+//             This is an example of how you might use React.createPortal. I think
+//             it is a pretty neat API that is yet another awesome escape hatch
+//             that React provides for practical reasons. Sometimes you just need
+//             to render something completely outside the React Tree.
+//           </p>
+//           <button onClick={this.handleShowMessageClick}>
+//             Show Secret Modal
+//           </button>
+//           {this.state.showModal ? (
+//             <Modal onClose={this.handleCloseModal}>
+//               This is the secret modal message!
+//             </Modal>
+//           ) : null}
+//         </div>
+//       </div>
+//     )
+//   }
+// }
 
-FileInfoPopup.propTypes = {
-    show: PropTypes.bool.isRequired,
-    handleClose: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired
-};
-
-export default FileInfoPopup;
+// ReactDOM.render(<App />, root)
