@@ -1,0 +1,29 @@
+.file-info-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.file-info-popup .file-info-popup-main {
+    position: fixed;
+    background: white;
+    width: 316px;
+    height: 395px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.top {
+    
+}
+
+.display {
+    display: block;
+}
+
+.hide {
+    display: none;
+}

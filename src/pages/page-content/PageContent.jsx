@@ -3,8 +3,10 @@ import Octicon, { FileMedia, FilePdf, FileDirectory, File, FileCode } from '@git
 import { withRouter } from 'react-router';
 
 import Files from '../../files/files';
-
 import '../../styles/pages.css';
+
+// helper components
+import RightClickMenu from '../../components/helpers/RightClickMenu';
 
 class PrePageContent extends Component {
     constructor(props){
@@ -12,16 +14,23 @@ class PrePageContent extends Component {
 
         this.state = {
             curPath: props.location.pathname,
-            filesToRender: []
+            filesToRender: [],
+            showMenu: []
         }
         this.setFilesToRender = this.setFilesToRender.bind(this);
-        this.iconSetter = this.iconSetter.bind(this);
+        this.fileSetter = this.fileSetter.bind(this);
+
+        // to handle Double Click
         this.handleDoubleClick = this.handleDoubleClick.bind(this);
+
+        // to handle Right Click
+        this.handleRightClick = this.handleRightClick.bind(this);
+        this.handleClickElsewhere = this.handleClickElsewhere.bind(this);
     }
 
     setFilesToRender() {
         let currentElement = {};
-        
+
         for (let iterator = 0; iterator < Files.length; iterator++) {
             if (Files[iterator].path === this.state.curPath) {
                 currentElement = Files[iterator];
@@ -38,7 +47,7 @@ class PrePageContent extends Component {
         this.setFilesToRender();
     }
 
-    iconSetter(fileType, fileClass, fileLink) {
+    fileSetter(fileType, fileClass, fileLink, fileContent) {
         let returnIcon;
 
         if (fileType === 'folder') {
@@ -74,11 +83,7 @@ class PrePageContent extends Component {
         if (returnIcon === undefined) {
             return undefined;
         } else {
-            return (
-                <span className="icon" onDoubleClick={(e) => {this.handleDoubleClick(fileLink, e)}}>
-                    {returnIcon}
-                </span>
-            );
+            return returnIcon;
         }
     }
 
@@ -87,6 +92,48 @@ class PrePageContent extends Component {
 
         if (fileLink !== '') {
             this.props.history.push(fileLink);
+        }
+    }
+
+    handleRightClick(event, index) {
+        event.preventDefault();
+
+        //console.log(this.state.filesToRender[index]);
+
+        let tempArr = [];
+
+        for (let iterator=0;iterator<this.state.filesToRender.length;iterator++) {
+            tempArr[iterator] = false;
+        }
+
+        this.setState({
+            showMenu: [...tempArr]
+        });
+
+        if (index >= 0) {
+            tempArr[index] = true;
+        }
+
+        this.setState({
+            showMenu: [...tempArr]
+        }, () => {
+            document.addEventListener("click", this.handleClickElsewhere, false);
+        });
+    }
+
+    handleClickElsewhere (event) {
+        event.preventDefault();
+
+        let tempArr = [];
+
+        for (let iterator = 0; iterator < this.state.filesToRender.length; iterator++) {
+            tempArr[iterator] = false;
+        }
+
+        if (this.state.showMenu) {
+            this.setState({showMenu: [...tempArr]}, () => {
+                document.removeEventListener('click', this.handleClickElsewhere, false);
+            });
         }
     }
 
@@ -99,8 +146,15 @@ class PrePageContent extends Component {
                         this.state.filesToRender.map((content, index) => {
                             return (
                                 <div className="grid-item" key={index}>
-                                    {this.iconSetter(content.type, content.class, content.linkTo)}
+                                    <div
+                                        className="icon"
+                                        onDoubleClick={(e) => { this.handleDoubleClick(content.linkTo, e) }}
+                                        onContextMenu={(e) => { this.handleRightClick(e, index) }}
+                                    >
+                                        {this.fileSetter(content.type, content.class, content.linkTo, content)}
+                                    </div>
                                     <span className="file-name">{content.filename}</span>
+                                    {this.state.showMenu[index] ? <RightClickMenu show={this.state.showMenu[index]} /> : undefined}
                                 </div>
                             )
                         })
