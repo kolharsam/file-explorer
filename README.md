@@ -3,14 +3,16 @@
 This assignment was done using:
 
 1. React
-2. CSS3 & Styled Components
+2. CSS3
 3. react-router-dom
+
+## The site is hosted on : [Link]()
 
 The app was generated using ```create-react-app``` and hence I've used ```yarn``` to build the source and also to install all the dependencies which can be seen in the ```package.json``` file.
 
 To see the output, just ```clone``` this repository and follow the steps given below:
 
-## To install all the dependencies
+### To install all the dependencies
 
 ```text
 yarn install
@@ -22,7 +24,7 @@ OR
 npm install
 ```
 
-## To run
+### To run
 
 ```text
 yarn start

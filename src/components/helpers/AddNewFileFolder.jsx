@@ -1,11 +1,25 @@
 import React, {Component} from 'react';
 
-import FileInfoPopup from './FileInfo';
+import AddFileOrFolder from './AddFileOrFolder';
 
 class AddNewFileFolder extends Component {
-    state = { showModal: false }
-    handleShowMessageClick = () => this.setState({ showModal: true })
-    handleCloseModal = () => this.setState({ showModal: false })
+    constructor(props){
+        super(props);
+        this.state = {
+            showModal: false
+        }
+        this.handleShowMessageClick = this.handleShowMessageClick.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
+    }
+
+    handleShowMessageClick = (e) =>  {
+        e.preventDefault(); 
+        this.setState({ showModal: true });
+    }
+    handleCloseModal = (e) => {
+        e.preventDefault();
+        this.setState({ showModal: false });
+    }
 
     render () {
         return (
@@ -27,11 +41,7 @@ class AddNewFileFolder extends Component {
                 >
                     +
                 </div>
-                {this.state.showModal ? (
-                    <FileInfoPopup onClose={this.handleCloseModal.bind(this)}>
-                        This is a message.
-                    </FileInfoPopup>
-                ) : null}
+                {this.state.showModal ? <AddFileOrFolder onClose={(e) => this.handleCloseModal(e)} /> : null}
             </React.Fragment>
         );
     }

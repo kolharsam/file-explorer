@@ -36,13 +36,13 @@ class RightClickMenu extends Component {
     onClickDelete () {
 
     }
-
+    
     render () {
         return (
             <React.Fragment>
                 {
                     this.state.showMenu ? (
-                        <div className="menu">
+                        <div className="menu" style={{borderRadius: '8px'}}>
                             {
                                 this.props.fileType === 'folder' 
                                     ? 

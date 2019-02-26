@@ -69,7 +69,7 @@ class CurrentPageLocation extends Component {
                             <i className="fa fa-arrow-circle-up" style={{ marginTop: '26.9px', marginLeft: '41.9px', fontSize: '24px', color: '#2F363F'}}></i>
                         </Link>
                     </div>
-                    <div className="breadcrumb" style={{ marginRight: '164px'}}>
+                    <div className="breadcrumb">
                         {this.root}
                         {this.state.listItems.map((location, index) => {
                             return (

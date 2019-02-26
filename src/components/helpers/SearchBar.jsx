@@ -23,14 +23,16 @@ class SearchBar extends Component {
     render () {
         return (
             <React.Fragment>
-                    <i class="fas fa-search" id="searchIcon"></i>
+                <div style={{ border: '1px solid #DDE0E4', borderRadius: '8px', paddingLeft: '12px', paddingRight: '12px', position:'fixed', marginLeft: '772px', marginTop:'24px'}}>
+                    <i className="fas fa-search" id="searchIcon" style={{ fontSize: '14px', color: '#AFB2B6', position: 'relative'}}></i>
                     <input 
                         type="text"
-                        style={{ border: '1px solid #DDE0E4', borderRadius: '8px', height: '32px', width: '204px', paddingLeft: '17px'}} 
+                        style={{height: '32px', width: '204px', paddingLeft: '8px', border: 'none', borderRadius: '8px'}} 
                         onChange={(e) => {this.handleOnChange(e)}}
                         value={this.state.searchText}
                         placeholder="Search for anything"
                     />
+                </div>
             </React.Fragment>
         );
     }

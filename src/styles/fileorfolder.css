@@ -1,0 +1,66 @@
+.buttons {
+    margin-top: 16px;
+}
+
+.file_blue {
+    background: #4AB7FF;
+}
+
+.folder_blue {
+    background: #4AB7FF;
+}
+
+.btn1 {
+    background-color: "#fff";
+    border: 1px solid #DDE0E4;
+    background: none;
+    box-shadow: none;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    outline: none;
+    font-size: 16px;
+    padding: 8px;
+    float: left;
+}
+
+.btn2 {
+    background-color: "#fff";
+    border: 1px solid #DDE0E4;
+    background: #4AB7FF;
+    box-shadow: none;
+    color: #fff;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    outline: none;
+    font-size: 16px;
+    padding: 8px;
+}
+
+.input:first-child {
+    margin-top: 32px;
+    color: #AFB2B6;
+}
+
+.input {
+    margin-top: 16px;
+    font-size: 14px;
+    color: #AFB2B6;
+    border: 1px solid #DDE0E4;
+}
+
+.input:nth-child(4) {
+    margin-bottom: 24px;
+}
+
+.create {
+    background: #4AB7FF;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    width: 220px;
+    height: 40px;
+}
+
+.inputs {
+    margin-left: 27px;
+}

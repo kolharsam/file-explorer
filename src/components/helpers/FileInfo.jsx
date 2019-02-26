@@ -44,7 +44,7 @@ class FileInfoPopup extends Component {
                 </div>
             </div>,
             modalRoot,
-        )
+        );
     }
 }
 
