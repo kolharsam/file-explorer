@@ -6,7 +6,7 @@ This assignment was done using:
 2. CSS3
 3. react-router-dom
 
-## The site is hosted on : [Link]()
+## The site is hosted on : [Link](https://smallcase-assignment.firebaseapp.com)
 
 The app was generated using ```create-react-app``` and hence I've used ```yarn``` to build the source and also to install all the dependencies which can be seen in the ```package.json``` file.
 
