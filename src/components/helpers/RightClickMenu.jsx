@@ -26,7 +26,9 @@ class RightClickMenu extends Component {
     }
 
     showGetInfo () {
-        this.setState({showInfoPopup: true});
+        this.setState({showInfoPopup: true}, () => {
+            console.log('hello' + this.state.showInfoPopup)
+        });
     }
 
     hideGetinfo () {
@@ -34,12 +36,17 @@ class RightClickMenu extends Component {
     }
 
     onClickDelete () {
-
+        // TODO: open a popup for delete!
     }
+
+    // componentWillUnmount () {
+    //     setInterval(() => {console.log('hello, world')}, 3000);
+    // }
     
     render () {
         return (
             <React.Fragment>
+                <div>
                 {
                     this.state.showMenu ? (
                         <div className="menu" style={{borderRadius: '8px'}}>
@@ -62,19 +69,21 @@ class RightClickMenu extends Component {
                             }
                             <div className="option" onClick={this.showGetInfo}>
                                     <div className="menu-text">Get Info</div>
+                                    {this.state.showInfoPopup ? 
+                                        <FileInfoPopup onClose={this.hideGetinfo}>
+                                            This is a message!
+                                            {console.log('asda')}
+                                        </FileInfoPopup>
+                                    : null}
                             </div>
                             <div className="option" onClick={this.onClickDelete}>
                                 <div className="menu-text">Delete</div>
                             </div>
                         </div>
-                        ) 
+                        )
                     : null
                 }
-                {this.state.showModal ? (
-                    <FileInfoPopup onClose={this.hideGetinfo}>
-                        This is the secret modal message!
-                    </FileInfoPopup>
-                ) : null}
+                </div>
             </React.Fragment> 
         );  
     }

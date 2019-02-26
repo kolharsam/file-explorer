@@ -35,7 +35,8 @@ class AddNewFileFolder extends Component {
                         color: '#c4c4c4',
                         borderRadius: '6px',
                         title: 'Add File or Create Folder',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        zIndex: '800'
                     }}
                     onClick={this.handleShowMessageClick}
                 >

@@ -20,7 +20,8 @@
 
 .option {
     background: #fff;
-    height: 43px;
+    /* height: 43px; */
+    height: 48px;   /* Corrected for the gap that was present according to the design specs. */
     width: 100%;
 }
 
