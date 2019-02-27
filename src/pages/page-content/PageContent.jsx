@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import Octicon, { FileMedia, FilePdf, FileDirectory, File, FileCode } from '@githubprimer/octicons-react';
+import Octicon, { FileMedia, FilePdf, File, FileCode } from '@githubprimer/octicons-react';
 import { withRouter } from 'react-router';
 
 import Files from '../../files/files';
 import '../../styles/pages.css';
+import folderImage from '../../images/folder.png';
 
 import AddNewFileFolder from '../../components/helpers/AddNewFileFolder';
 
@@ -53,7 +54,7 @@ class PrePageContent extends Component {
         let returnIcon;
 
         if (fileType === 'folder') {
-            returnIcon = (<Octicon icon={FileDirectory} height={72} width={51} />);
+            returnIcon = (<img src={folderImage} alt="" />);
         } else if (fileType === 'file') { // although it is obvious.
             switch (fileClass) {
                 case 'image':

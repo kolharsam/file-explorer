@@ -1,49 +1,39 @@
-import React, {Component} from 'react';
+import React from 'react';
+import AddFileOrFolder from './AddFileOrFolderPopup';
 
-import AddFileOrFolder from './AddFileOrFolder';
+import addImage from '../../images/addFileOrFolder.png';
 
-class AddNewFileFolder extends Component {
-    constructor(props){
+import '../../styles/fileorfolder.css'
+
+class AddNewFileFolder extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
-            showModal: false
-        }
-        this.handleShowMessageClick = this.handleShowMessageClick.bind(this);
-        this.handleCloseModal = this.handleCloseModal.bind(this);
+            showPopup: false
+        };
+        
+        this.togglePopup = this.togglePopup.bind(this);
     }
 
-    handleShowMessageClick = (e) =>  {
-        e.preventDefault(); 
-        this.setState({ showModal: true });
-    }
-    handleCloseModal = (e) => {
-        e.preventDefault();
-        this.setState({ showModal: false });
+    togglePopup() {
+        this.setState(
+            {
+                showPopup: !this.state.showPopup
+            },
+            () => {
+                console.log(`changed the state to ` + this.state.showPopup);
+            }
+        );
     }
 
-    render () {
+    render() {
         return (
-            <React.Fragment>
-                <div 
-                    style={{
-                        border: '2px #c4c4c4 dashed',
-                        height: '113px',
-                        width: '96px',
-                        textAlign: 'center',
-                        paddingTop: '28px',
-                        fontSize: '42px',
-                        color: '#c4c4c4',
-                        borderRadius: '6px',
-                        title: 'Add File or Create Folder',
-                        cursor: 'pointer',
-                        zIndex: '800'
-                    }}
-                    onClick={this.handleShowMessageClick}
-                >
-                    +
-                </div>
-                {this.state.showModal ? <AddFileOrFolder onClose={(e) => this.handleCloseModal(e)} /> : null}
-            </React.Fragment>
+            <div className="app">
+                <img style={{cursor: 'pointer', zIndex: '-1000'}} src={addImage} alt="" onClick={this.togglePopup} />
+                {this.state.showPopup ? (
+                    <AddFileOrFolder text="Create File" closePopup={this.togglePopup} />
+                ) : null}
+            </div>
         );
     }
 }
