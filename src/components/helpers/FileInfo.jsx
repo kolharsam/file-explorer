@@ -1,56 +1,91 @@
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-//import PropTypes from 'prop-types';
-//import Octicon, {X} from '@githubprimer/octicons-react';
+import React from "react";
+import PropTypes from 'prop-types';
 
-const modalRoot = document.getElementById('modal-root');
+import Octicon, { FileMedia, FilePdf, File, FileCode } from '@githubprimer/octicons-react';
 
-class FileInfoPopup extends Component {
+import "../../styles/file-info.css";
+
+import folderImg from '../../images/folder.png'
+
+class FileInfoPopup extends React.Component {
+
+    returnFileIcon (filetype) {
+        let returnIcon;
+
+        switch (filetype) {
+            case 'image':
+                returnIcon = (<Octicon icon={FileMedia} height={72} width={51} />);
+                break;
+            case 'video':
+                returnIcon = (<Octicon icon={FileMedia} height={72} width={51} />);
+                break;
+            case 'doc':
+                returnIcon = (<Octicon icon={File} height={72} width={51} />);
+                break;
+            case 'text':
+                returnIcon = (<Octicon icon={File} height={72} width={51} />);
+                break;
+            case 'pdf':
+                returnIcon = (<Octicon icon={FilePdf} height={72} width={51} />);
+                break;
+            case 'audio':
+                returnIcon = (<Octicon icon={FileMedia} height={72} width={51} />);
+                break;
+            default:
+                returnIcon = (<Octicon icon={FileCode} height={72} width={51} />);
+                break;
+        }
+        return returnIcon;
+    }
+
     render() {
-        return ReactDOM.createPortal(
-            <div
-                style={{
-                    position: 'absolute',
-                    top: '0',
-                    bottom: '0',
-                    left: '0',
-                    right: '0',
-                    display: 'grid',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginTop: '30px'
-                }}
-                onClick={this.props.onClose}
-            >
-                <div
-                    style={{
-                        padding: 20,
-                        background: '#fff',
-                        borderRadius: '2px',
-                        display: 'inline-block',
-                        minHeight: '447px',
-                        margin: '1rem',
-                        position: 'relative',
-                        minWidth: '316px',
-                        boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
-                        justifySelf: 'center',
-                    }}
-                >   
-                    <div className="top" style={{ clear: 'both', marginBottom: '20px'}}>
-                        <h3 style={{marginLeft: '124px', fontSize: '18px', color: '#2F363F', float:'left'}}>File Info</h3>
-                        <button onClick={this.props.onClose} style={{float: 'right', marginLeft: '78px', height: '24px', width:'24px', fontSize: '18px', backgroundColor: '#ffffff'}}>X</button>
+        return (
+            <div className="popup2">
+                <div className="popup2_inner">
+                    <div className="top2">
+                        <h4 className="heading2">{this.props.text}</h4>
+                        <button className="closeButton2" onClick={this.props.closePopup}>
+                            <i className="fas fa-times"></i>
+                        </button>
                     </div>
-                    {this.props.children}
+                    <div className="file_icon">
+                        {this.props.filetype === 'folder' ? <img src={folderImg} alt="" /> : this.returnFileIcon(this.props.fileclass)}
+                    </div>
+                    <div className="descriptions">
+                            <span className="identifier">
+                                File: 
+                            </span>
+                            <span className="id_value">
+                                {this.props.filename}
+                            </span>
+                            <span className="identifier">
+                                Size:
+                            </span>
+                            <span className="id_value">
+                                {this.props.filesize}
+                            </span>
+                            <span className="identifier">
+                                Creator Name:
+                            </span>
+                            <span className="id_value">
+                                {this.props.filecreator}
+                            </span>
+                            <span className="identifier">
+                                Creator Date:
+                            </span>
+                            <span className="id_value">
+                                {this.props.filecreated}
+                            </span>
+                        </div>
+                    </div>
                 </div>
-            </div>,
-            modalRoot,
         );
     }
 }
 
-// FileInfoPopup.propTypes = {
-//     show: PropTypes.bool.isRequired,
-//     handleClose: PropTypes.func.isRequired
-// };
+FileInfoPopup.propTypes = {
+    text: PropTypes.string.isRequired,
+    closePopup: PropTypes.func.isRequired,
+};
 
 export default FileInfoPopup;

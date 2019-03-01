@@ -21,7 +21,7 @@ class AddFileOrFolder extends Component {
         this.setState({fileOrFolder: 'file', setToFileOrFolder: true}, () => {console.log('set to file')});
     }
 
-    handleOnClickFolder(e) {
+    handleOnClickFolder (e) {
         e.preventDefault();
         this.setState({fileOrFolder: 'folder', setToFileOrFolder: false}, () => {console.log('set to folder')});
     }

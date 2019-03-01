@@ -134,10 +134,13 @@ class PrePageContent extends Component {
         }
 
         if (this.state.showMenu) {
+            setTimeout(() => 
             this.setState({showMenu: [...tempArr]}, () => {
                 document.removeEventListener('click', this.handleClickElsewhere, false);
-            });
+            }), 4000);
         }
+
+        document.removeEventListener('click', this.handleClickElsewhere, false);
     }
 
 
@@ -164,6 +167,7 @@ class PrePageContent extends Component {
                                                 fileName={content.filename}
                                                 fileType={content.type}
                                                 fileSize={content.size}
+                                                fileClass={content.class}
                                                 fileCreatorName={content.creatorName}
                                                 fileCreatedDate={content.createdDate}
                                                 linkTo={content.linkTo} 

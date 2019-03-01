@@ -11,44 +11,34 @@ class RightClickMenu extends Component {
         super(props);
 
         this.state = {
-            showMenu: props.show,
             showInfoPopup: false
         }
 
         this.onClickOpen = this.onClickOpen.bind(this);
-        this.showGetInfo = this.showGetInfo.bind(this);
-        this.hideGetinfo = this.hideGetinfo.bind(this);
+        this.toggleInfoPopup = this.toggleInfoPopup.bind(this);
         this.onClickDelete = this.onClickDelete.bind(this);
     }
 
     onClickOpen () {
-        // TODO: to open popup for the rest of the files.
+        this.setState({ showInfoPopup: !this.state.showInfoPopup }, () => { console.log('ad') });
     }
 
-    showGetInfo () {
-        this.setState({showInfoPopup: true}, () => {
-            console.log('hello' + this.state.showInfoPopup)
-        });
-    }
+    toggleInfoPopup (e) {
+        e.preventDefault();
 
-    hideGetinfo () {
-        this.setState({ showInfoPopup: false });
+        this.setState({showInfoPopup: !this.state.showInfoPopup}, () => {console.log('ad')});
     }
 
     onClickDelete () {
         // TODO: open a popup for delete!
     }
-
-    // componentWillUnmount () {
-    //     setInterval(() => {console.log('hello, world')}, 3000);
-    // }
     
     render () {
         return (
             <React.Fragment>
                 <div>
                 {
-                    this.state.showMenu ? (
+                    this.props.show ? (
                         <div className="menu" style={{borderRadius: '8px'}}>
                             {
                                 this.props.fileType === 'folder' 
@@ -67,21 +57,29 @@ class RightClickMenu extends Component {
                                             </div>
                                         </div>
                             }
-                            <div className="option" onClick={this.showGetInfo}>
+                                <div className="option" onClick={e => this.toggleInfoPopup(e)}>
                                     <div className="menu-text">Get Info</div>
-                                    {this.state.showInfoPopup ? 
-                                        <FileInfoPopup onClose={this.hideGetinfo}>
-                                            This is a message!
-                                            {console.log('asda')}
-                                        </FileInfoPopup>
-                                    : null}
-                            </div>
-                            <div className="option" onClick={this.onClickDelete}>
-                                <div className="menu-text">Delete</div>
-                            </div>
+                                    {
+                                        this.state.showInfoPopup ?
+                                            <FileInfoPopup 
+                                                filename={this.props.fileName} 
+                                                filetype={this.props.fileType} 
+                                                filesize={this.props.fileSize} 
+                                                filecreator={this.props.fileCreatorName}
+                                                filecreated={this.props.fileCreatedDate}
+                                                fileclass={this.props.fileClass}
+                                                text="File Info" 
+                                                closePopup={this.toggleInfoPopup} 
+                                            />
+                                        : null
+                                    }
+                                </div>
+                                <div className="option" onClick={this.onClickDelete}>
+                                    <div className="menu-text">Delete</div>
+                                </div>
                         </div>
                         )
-                    : null
+                    : null           
                 }
                 </div>
             </React.Fragment> 
