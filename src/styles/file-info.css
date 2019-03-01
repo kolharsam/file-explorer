@@ -41,8 +41,8 @@
     margin-top:25px;
     margin-right: 78px;
     font-size: 18px;
-    margin-left: 80px;
     color: #2F363F;
+    margin-left: 80px;
 }
 
 .button2 {
@@ -68,7 +68,7 @@
 
 .descriptions {
     display: grid;
-    grid-template-columns: 110px 110px;
+    grid-template-columns: 115px 115px;
     grid-template-rows: 24px 24px 24px 24px; 
     grid-column-gap: 8px;
     grid-row-gap: 24px;
