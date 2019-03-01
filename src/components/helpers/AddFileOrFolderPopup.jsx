@@ -32,7 +32,7 @@ class AddFileOrFolder extends Component {
                 <div className="popup">
                     <div className="popup_inner">
                         <div className="top">
-                            <h4 className="heading">{this.props.text}</h4>
+                            <h4 className="heading">Create {this.state.setToFileOrFolder ? "File  " : "Folder"}</h4>
                             <button className="closeButton" onClick={this.props.closePopup}>
                                 <i className="fas fa-times"></i>
                             </button>

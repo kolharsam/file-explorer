@@ -38,6 +38,8 @@
     font-size: 18px;
     margin-top: 25px;
     color: #2f363f;
+    position: absolute;
+    margin-left: 91px;  /* Design specs have it as 111px and that is way off the center. */
 }
 
 button::-moz-focus-inner {
@@ -53,8 +55,9 @@ button::-moz-focus-inner {
     padding: 2px;
     float: right;
     margin-top: 22px;
-    position: absolute;
-    margin-left: 62px;
+    position: relative;
+    margin-left: 268px;
+    margin-right: 24px;
     outline: none;
     cursor: pointer;
 }
