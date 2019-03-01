@@ -6,6 +6,9 @@ import Files from '../../files/files';
 import '../../styles/pages.css';
 import folderImage from '../../images/folder.png';
 
+import SearchBar from '../../components/helpers/SearchBar';
+import Banner from '../../components/helpers/Banner';
+
 import AddNewFileFolder from '../../components/helpers/AddNewFileFolder';
 
 // helper components
@@ -19,7 +22,14 @@ class PrePageContent extends Component {
             curPath: props.location.pathname,
             filesToRender: [],
             showMenu: [],
+            searchText: '',
+            permFilesOfCurrentFolder: [],
+            //notFoundResults: false,
         }
+
+        this.handleOnSearchTextChange = this.handleOnSearchTextChange.bind(this);
+        this.changeFilesToRender = this.changeFilesToRender.bind(this);
+
         this.setFilesToRender = this.setFilesToRender.bind(this);
         this.fileSetter = this.fileSetter.bind(this);
 
@@ -42,7 +52,35 @@ class PrePageContent extends Component {
         }
 
         this.setState({
-            filesToRender: [...currentElement.filesAndFoldersPresent]
+            filesToRender: [...currentElement.filesAndFoldersPresent],
+            permFilesOfCurrentFolder: [...currentElement.filesAndFoldersPresent]
+        });
+    }
+
+    changeFilesToRender () {
+        var searchResult = [];
+
+        if (this.state.searchText.length > 0) {
+            let tempFiles = this.state.permFilesOfCurrentFolder;
+            
+            searchResult = tempFiles.filter((file) => {
+                return file.filename.includes(this.state.searchText);
+            });
+        }
+
+        if (searchResult.length === 0) {
+            //this.setState({notFoundResults: false});
+            this.setFilesToRender();
+        } else {
+            this.setState({ filesToRender: [...searchResult], foundResults: true});
+        }
+    }
+
+    handleOnSearchTextChange (e) {
+        e.preventDefault();
+
+        this.setState({searchText: e.target.value.toLowerCase()}, () => {
+            this.changeFilesToRender();
         });
     }
 
@@ -139,15 +177,15 @@ class PrePageContent extends Component {
                 document.removeEventListener('click', this.handleClickElsewhere, false);
             }), 4000);
         }
-
-        document.removeEventListener('click', this.handleClickElsewhere, false);
     }
 
 
     render() {
         return(
             <React.Fragment>
-                <div className="page-content">
+                <SearchBar handlechange={e => this.handleOnSearchTextChange(e)} searchtext={this.state.searchText} />
+                {/* {this.state.notFoundResults ? null : <Banner text={this.searchtext} />} */}
+                <div className="page-content">    
                     {
                         this.state.filesToRender.map((content, index) => {
                             return (

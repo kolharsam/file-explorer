@@ -1,8 +1,8 @@
-input:focus {
+.searchbar-input:focus {
     outline: none;
 }
 
-input::placeholder {
+.searchbar-input::placeholder {
     font-size: 15px;
     margin-bottom: 3px;
     opacity: 0.6;

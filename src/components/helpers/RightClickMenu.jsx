@@ -59,9 +59,8 @@ class RightClickMenu extends Component {
                             }
                                 <div className="option" onClick={e => this.toggleInfoPopup(e)}>
                                     <div className="menu-text">Get Info</div>
-                                    {
-                                        this.state.showInfoPopup ?
                                             <FileInfoPopup 
+                                                show={this.state.showInfoPopup}
                                                 filename={this.props.fileName} 
                                                 filetype={this.props.fileType} 
                                                 filesize={this.props.fileSize} 
@@ -71,8 +70,6 @@ class RightClickMenu extends Component {
                                                 text="File Info" 
                                                 closePopup={this.toggleInfoPopup} 
                                             />
-                                        : null
-                                    }
                                 </div>
                                 <div className="option" onClick={this.onClickDelete}>
                                     <div className="menu-text">Delete</div>

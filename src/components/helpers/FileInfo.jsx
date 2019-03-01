@@ -40,7 +40,8 @@ class FileInfoPopup extends React.Component {
 
     render() {
         return (
-            <div className="popup2">
+                this.props.show ? 
+            (<div className="popup2">
                 <div className="popup2_inner">
                     <div className="top2">
                         <h4 className="heading2">{this.props.text}</h4>
@@ -78,7 +79,7 @@ class FileInfoPopup extends React.Component {
                             </span>
                         </div>
                     </div>
-                </div>
+                </div>) : null
         );
     }
 }
