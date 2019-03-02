@@ -7,9 +7,15 @@ class Banner extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className="banner">
-                    No Result found for <span className="query">{this.props.text}</span>.
-                </div>
+                {
+                    this.props.text !== '' 
+                    ? 
+                        <div className="banner">
+                            No Result found for&nbsp;<span className="query">{this.props.text}</span>
+                        </div> 
+                    : 
+                        null
+                }
             </React.Fragment>
         );
     }

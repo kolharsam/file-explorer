@@ -24,7 +24,7 @@ class PrePageContent extends Component {
             showMenu: [],
             searchText: '',
             permFilesOfCurrentFolder: [],
-            //notFoundResults: false,
+            notFoundResults: false,
         }
 
         this.handleOnSearchTextChange = this.handleOnSearchTextChange.bind(this);
@@ -69,10 +69,10 @@ class PrePageContent extends Component {
         }
 
         if (searchResult.length === 0) {
-            //this.setState({notFoundResults: false});
+            this.setState({notFoundResults: true});
             this.setFilesToRender();
         } else {
-            this.setState({ filesToRender: [...searchResult], foundResults: true});
+            this.setState({filesToRender: [...searchResult], notFoundResults: false});
         }
     }
 
@@ -139,8 +139,6 @@ class PrePageContent extends Component {
     handleRightClick(event, index) {
         event.preventDefault();
 
-        //console.log(this.state.filesToRender[index]);
-
         let tempArr = [];
 
         for (let iterator=0;iterator<this.state.filesToRender.length;iterator++) {
@@ -184,7 +182,7 @@ class PrePageContent extends Component {
         return(
             <React.Fragment>
                 <SearchBar handlechange={e => this.handleOnSearchTextChange(e)} searchtext={this.state.searchText} />
-                {/* {this.state.notFoundResults ? null : <Banner text={this.searchtext} />} */}
+                 {!this.state.notFoundResults ? null : <Banner text={this.state.searchText} />}
                 <div className="page-content">    
                     {
                         this.state.filesToRender.map((content, index) => {

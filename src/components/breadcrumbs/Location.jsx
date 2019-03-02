@@ -74,7 +74,7 @@ class CurrentPageLocation extends Component {
                         {this.state.listItems.map((location, index) => {
                             return (
                                 <div className="list-item" key={index}>
-                                    <Link to={"/" + location} style={{ textDecoration: 'none', color: '#81878C'}}>{location}</Link>
+                                    <Link to={"/" + location} className="links">{location}</Link>
                                 </div>
                             );
                         })}
