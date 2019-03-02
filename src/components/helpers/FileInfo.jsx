@@ -41,11 +41,11 @@ class FileInfoPopup extends React.Component {
     render() {
         return (
                 this.props.show ? 
-            (<div className="popup2">
-                <div className="popup2_inner">
-                    <div className="top2">
-                        <h4 className="heading2">{this.props.text}</h4>
-                        <button className="closeButton2" onClick={this.props.closePopup}>
+            (<div className="popup_file">
+                <div className="popup_file_inner">
+                    <div className="top_file">
+                        <h4 className="heading_file">{this.props.text}</h4>
+                        <button className="closeButton_file" onClick={this.props.closePopup}>
                             <i className="fas fa-times"></i>
                         </button>
                     </div>

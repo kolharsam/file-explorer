@@ -39,7 +39,7 @@
     margin-top: 25px;
     color: #2f363f;
     position: absolute;
-    margin-left: 91px;  /* Design specs have it as 111px and that is way off the center. */
+    margin-left: 105px;  /* Design specs have it as 111px and that is way off the center. */
 }
 
 button::-moz-focus-inner {

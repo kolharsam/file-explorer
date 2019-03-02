@@ -5,18 +5,20 @@ import {Link} from 'react-router-dom';
 import FileInfoPopup from './FileInfo';
 
 import '../../styles/context-menu.css';
+import DeletePopup from './DeletePopup';
 
 class RightClickMenu extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            showInfoPopup: false
+            showInfoPopup: false,
+            showDeletePopup: false,
         }
 
         this.onClickOpen = this.onClickOpen.bind(this);
         this.toggleInfoPopup = this.toggleInfoPopup.bind(this);
-        this.onClickDelete = this.onClickDelete.bind(this);
+        this.toggleDeletePopup = this.toggleDeletePopup.bind(this);
     }
 
     onClickOpen () {
@@ -26,11 +28,13 @@ class RightClickMenu extends Component {
     toggleInfoPopup (e) {
         e.preventDefault();
 
-        this.setState({showInfoPopup: !this.state.showInfoPopup}, () => {console.log('ad')});
+        this.setState({showInfoPopup: !this.state.showInfoPopup}, () => {console.log('showing information')});
     }
 
-    onClickDelete () {
-        // TODO: open a popup for delete!
+    toggleDeletePopup (e) {
+        e.preventDefault();
+
+        this.setState({showDeletePopup: !this.state.showDeletePopup}, () => {console.log('warning for delete')});
     }
     
     render () {
@@ -71,8 +75,12 @@ class RightClickMenu extends Component {
                                                 closePopup={this.toggleInfoPopup} 
                                             />
                                 </div>
-                                <div className="option" onClick={this.onClickDelete}>
+                                <div className="option" onClick={e => this.toggleDeletePopup(e)}>
                                     <div className="menu-text">Delete</div>
+                                    <DeletePopup 
+                                        show={this.state.showDeletePopup}
+                                        closePopup={this.toggleDeletePopup}
+                                    />   
                                 </div>
                         </div>
                         )

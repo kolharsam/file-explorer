@@ -44,9 +44,9 @@ class PrePageContent extends Component {
     setFilesToRender() {
         let currentElement = {};
 
-        for (let iterator = 0; iterator < Files.length; iterator++) {
-            if (Files[iterator].path === this.state.curPath) {
-                currentElement = Files[iterator];
+        for (let iterator = 0; iterator < Files.files.length; iterator++) {
+            if (Files.files[iterator].path === this.state.curPath) {
+                currentElement = Files.files[iterator];
                 break;
             }
         }
@@ -64,7 +64,7 @@ class PrePageContent extends Component {
             let tempFiles = this.state.permFilesOfCurrentFolder;
             
             searchResult = tempFiles.filter((file) => {
-                return file.filename.includes(this.state.searchText);
+                return file.filename.includes(this.state.searchText) || file.filename === this.state.searchText;
             });
         }
 
