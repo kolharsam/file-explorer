@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import Breadcumbs from '../components/breadcrumbs/Breadcrumbs';
-import PageContent from './page-content/PageContent';
+import Fallback from '../components/fallback/Fallback';
+const PageContentComponent = lazy(() => import('./page-content/PageContent'));
 
 
 class Work extends Component {
@@ -8,7 +9,9 @@ class Work extends Component {
         return (
             <React.Fragment>
                 <Breadcumbs />
-                <PageContent />
+                <Suspense fallback={<Fallback />}>
+                    <PageContentComponent />
+                </Suspense>
             </React.Fragment>
         );
     }

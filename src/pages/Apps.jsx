@@ -1,13 +1,17 @@
-import React, {Component} from 'react';
+import React, {Component, lazy, Suspense} from 'react';
 import Breadcrumbs from '../components/breadcrumbs/Breadcrumbs';
-import PageContent from './page-content/PageContent';
+import Fallback from '../components/fallback/Fallback';
+const PageContentComponent = lazy(() => import('./page-content/PageContent'));
+
 
 class Apps extends Component {
     render () {
         return (
             <React.Fragment>
                 <Breadcrumbs />
-                <PageContent />
+                <Suspense fallback={<Fallback />}>
+                    <PageContentComponent />
+                </Suspense>
             </React.Fragment>
         );
     }
