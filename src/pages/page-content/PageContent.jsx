@@ -79,7 +79,7 @@ class PrePageContent extends Component {
     handleOnSearchTextChange (e) {
         e.preventDefault();
 
-        this.setState({searchText: e.target.value.toLowerCase()}, () => {
+        this.setState({searchText: e.target.value.toLowerCase().trim()}, () => {
             this.changeFilesToRender();
         });
     }
