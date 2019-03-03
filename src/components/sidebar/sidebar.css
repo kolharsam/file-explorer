@@ -34,6 +34,10 @@
     clear: both;
 }
 
+.sidebar-item:hover {
+    background-color: #EEEFF1;
+}
+
 .sidebar-item:active {
     background-color: #EEEFF1;
 }

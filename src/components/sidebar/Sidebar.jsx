@@ -5,21 +5,6 @@ import {Link} from 'react-router-dom';
 import './sidebar.css'
 
 class Sidebar extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            iconClicked: false
-        }
-
-        this.sidebarExpandClicked = this.sidebarExpandClicked.bind(this)
-    }
-
-    sidebarExpandClicked (event) {
-        event.preventDefault();
-        this.setState({iconClicked: !this.state.iconClicked});
-    }
-
     render() {
         return (
             <React.Fragment>
@@ -44,7 +29,7 @@ class Sidebar extends Component {
                         <Link to="/docs" style={{textDecoration: 'none'}}>
                             <div className="sidebar-item" key="4">
                                 <p className="sidebar-item-text">Docs</p>
-                                <button className={this.state.iconClicked ? "sidebar-item-extend clicked" : 'sidebar-item-extend'} onClick={this.sidebarExpandClicked}>
+                                <button className={"sidebar-item-extend clicked"}>
                                     <i className="fas fa-caret-up"></i>
                                 </button>
                             </div>
