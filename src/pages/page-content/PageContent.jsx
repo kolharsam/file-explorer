@@ -168,13 +168,10 @@ class PrePageContent extends Component {
         for (let iterator = 0; iterator < this.state.filesToRender.length; iterator++) {
             tempArr[iterator] = false;
         }
-
-        if (this.state.showMenu) {
-            setTimeout(() => 
-            this.setState({showMenu: [...tempArr]}, () => {
-                document.removeEventListener('click', this.handleClickElsewhere, false);
-            }), 4000);
-        }
+        
+        this.setState({showMenu: [...tempArr]}, () => {
+            document.removeEventListener('click', this.handleClickElsewhere, false);
+        })
     }
 
 
@@ -196,21 +193,16 @@ class PrePageContent extends Component {
                                         {this.fileSetter(content.type, content.class)}
                                     </div>
                                     <span className="file-name">{content.filename}</span>
-                                    {
-                                        this.state.showMenu[index] ? 
-                                            <RightClickMenu 
-                                                show={this.state.showMenu[index]}
-                                                fileName={content.filename}
-                                                fileType={content.type}
-                                                fileSize={content.size}
-                                                fileClass={content.class}
-                                                fileCreatorName={content.creatorName}
-                                                fileCreatedDate={content.createdDate}
-                                                linkTo={content.linkTo} 
-                                            /> 
-                                        : 
-                                            undefined
-                                    }
+                                        <RightClickMenu 
+                                            show={this.state.showMenu[index]}
+                                            fileName={content.filename}
+                                            fileType={content.type}
+                                            fileSize={content.size}
+                                            fileClass={content.class}
+                                            fileCreatorName={content.creatorName}
+                                            fileCreatedDate={content.createdDate}
+                                            linkTo={content.linkTo} 
+                                        />
                                 </div>
                             )
                         })

@@ -40,7 +40,6 @@ class RightClickMenu extends Component {
     render () {
         return (
             <React.Fragment>
-                <div>
                 {
                     this.props.show ? (
                         <div className="menu" style={{borderRadius: '8px'}}>
@@ -63,30 +62,30 @@ class RightClickMenu extends Component {
                             }
                                 <div className="option" onClick={e => this.toggleInfoPopup(e)}>
                                     <div className="menu-text">Get Info</div>
-                                            <FileInfoPopup 
-                                                show={this.state.showInfoPopup}
-                                                filename={this.props.fileName} 
-                                                filetype={this.props.fileType} 
-                                                filesize={this.props.fileSize} 
-                                                filecreator={this.props.fileCreatorName}
-                                                filecreated={this.props.fileCreatedDate}
-                                                fileclass={this.props.fileClass}
-                                                text="File Info" 
-                                                closePopup={this.toggleInfoPopup} 
-                                            />
                                 </div>
                                 <div className="option" onClick={e => this.toggleDeletePopup(e)}>
-                                    <div className="menu-text">Delete</div>
-                                    <DeletePopup 
-                                        show={this.state.showDeletePopup}
-                                        closePopup={this.toggleDeletePopup}
-                                    />   
+                                    <div className="menu-text">Delete</div> 
                                 </div>
                         </div>
                         )
                     : null           
                 }
-                </div>
+                    <FileInfoPopup
+                        show={this.state.showInfoPopup}
+                        filename={this.props.fileName}
+                        filetype={this.props.fileType}
+                        filesize={this.props.fileSize}
+                        filecreator={this.props.fileCreatorName}
+                        filecreated={this.props.fileCreatedDate}
+                        fileclass={this.props.fileClass}
+                        text="File Info"
+                        closePopup={this.toggleInfoPopup}
+                    />
+
+                    <DeletePopup
+                        show={this.state.showDeletePopup}
+                        closePopup={this.toggleDeletePopup}
+                    />
             </React.Fragment> 
         );  
     }

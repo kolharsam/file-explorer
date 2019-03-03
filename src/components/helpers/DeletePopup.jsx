@@ -18,8 +18,8 @@ class DeletePopup extends React.Component {
                         </div>
                         <hr className="separator" />
                         <div className="actions">
-                            <button className="cancel">Cancel</button>
-                            <button className="danger">Delete</button>
+                            <button className="cancel" onClick={this.props.closePopup}>Cancel</button>
+                            <button className="danger" onClick={this.props.closePopup}>Delete</button>
                         </div>
                     </div>
                 </div>
