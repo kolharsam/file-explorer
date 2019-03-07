@@ -91,6 +91,10 @@ class RightClickMenu extends Component {
     }
 }
 
+RightClickMenu.defaultProps = {
+    show: false,
+};
+
 RightClickMenu.propTypes = {
     show: PropTypes.bool.isRequired,
     fileName: PropTypes.string.isRequired,

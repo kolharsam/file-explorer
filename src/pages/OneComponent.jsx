@@ -1,9 +1,9 @@
-import React, { Component, lazy, Suspense }from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import Breadcrumbs from '../components/breadcrumbs/Breadcrumbs';
 import Fallback from '../components/fallback/Fallback';
-const PageContentComponent = lazy(() => import('./page-content/PageContent'));
+const PageContentComponent = lazy(() => import('./PageContent'));
 
-class Videos extends Component {
+class OneComponent extends Component {
     render() {
         return (
             <React.Fragment>
@@ -16,4 +16,4 @@ class Videos extends Component {
     }
 }
 
-export default Videos;
+export default OneComponent;

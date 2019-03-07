@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
+import React, {Component, lazy, Suspense} from 'react';
 import {BrowserRouter as Router} from 'react-router-dom';
-
-// Component Imports
-import Content from './content/Content';
-import Sidebar from './sidebar/Sidebar';
+import Fallback from '../components/fallback/Fallback';
 
 // Styles Imports
 import '../styles/fonts.css';
 import '../styles/layout.css'
+
+const Sidebar = lazy(() => import('./sidebar/Sidebar'));
+const Content = lazy(() => import('./content/Content'));
 
 class Main extends Component {
     render () {
@@ -15,8 +15,10 @@ class Main extends Component {
             <React.Fragment>
                 <Router>
                     <div className="main-content">
-                        <Sidebar />
-                        <Content />
+                        <Suspense fallback={<Fallback />}>
+                            <Sidebar />
+                            <Content />
+                        </Suspense>
                     </div>
                 </Router>
             </React.Fragment>

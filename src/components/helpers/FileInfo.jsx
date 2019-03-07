@@ -41,7 +41,8 @@ class FileInfoPopup extends React.Component {
     render() {
         return (
                 this.props.show ? 
-            (<div className="popup_file">
+            (
+            <div className="popup_file">
                 <div className="popup_file_inner">
                     <div className="top_file">
                         <h4 className="heading_file">{this.props.text}</h4>

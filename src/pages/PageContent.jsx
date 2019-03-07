@@ -2,28 +2,31 @@ import React, { Component } from 'react';
 import Octicon, { FileMedia, FilePdf, File, FileCode } from '@githubprimer/octicons-react';
 import { withRouter } from 'react-router';
 
-import Files from '../../files/files';
-import '../../styles/pages.css';
-import folderImage from '../../images/folder.png';
+import '../styles/pages.css';
+import folderImage from '../images/folder.png';
 
-import SearchBar from '../../components/helpers/SearchBar';
-import Banner from '../../components/helpers/Banner';
+import firebase from '../firebase';
 
-import AddNewFileFolder from '../../components/helpers/AddNewFileFolder';
+import SearchBar from '../components/helpers/SearchBar';
+import Banner from '../components/helpers/Banner';
+
+import AddNewFileFolder from '../components/helpers/AddNewFileFolder';
 
 // helper components
-import RightClickMenu from '../../components/helpers/RightClickMenu';
+import RightClickMenu from '../components/helpers/RightClickMenu';
+import Fallback from '../components/fallback/Fallback'
 
 class PrePageContent extends Component {
     constructor(props){
         super(props);
 
         this.state = {
+            mainFilesObject: [],
             curPath: props.location.pathname,
             filesToRender: [],
             showMenu: [],
             searchText: '',
-            permFilesOfCurrentFolder: [],
+            fetchedFiles: false,
             notFoundResults: false,
         }
 
@@ -39,21 +42,40 @@ class PrePageContent extends Component {
         // to handle Right Click
         this.handleRightClick = this.handleRightClick.bind(this);
         this.handleClickElsewhere = this.handleClickElsewhere.bind(this);
+
+        this.addToFiles = this.addToFiles.bind(this);
+    }
+
+    addToFiles = (path, newObject) => {
+        let iterator = 0;
+
+        let tempFiles = this.state.mainFilesObject;
+
+        for (iterator = 0; iterator < tempFiles.length; iterator++) {
+            if (tempFiles[iterator].path === path) {
+                break;
+            }
+        }
+
+        tempFiles[iterator].filesAndFoldersPresent.push(newObject);
+
+        this.setState({ mainFilesObject: [...tempFiles] }, () => {
+            console.log('Added a New File' + this.state.mainFilesObject[iterator]);
+        });
     }
 
     setFilesToRender() {
         let currentElement = {};
 
-        for (let iterator = 0; iterator < Files.files.length; iterator++) {
-            if (Files.files[iterator].path === this.state.curPath) {
-                currentElement = Files.files[iterator];
+        for (let iterator = 0; iterator < this.state.mainFilesObject.length; iterator++) {
+            if (this.state.mainFilesObject[iterator].path === this.state.curPath) {
+                currentElement = this.state.mainFilesObject[iterator];
                 break;
             }
         }
 
         this.setState({
-            filesToRender: [...currentElement.filesAndFoldersPresent],
-            permFilesOfCurrentFolder: [...currentElement.filesAndFoldersPresent]
+            filesToRender: [...currentElement.filesAndFoldersPresent]
         });
     }
 
@@ -61,7 +83,7 @@ class PrePageContent extends Component {
         var searchResult = [];
 
         if (this.state.searchText.length > 0) {
-            let tempFiles = this.state.permFilesOfCurrentFolder;
+            let tempFiles = this.state.filesToRender;
             
             searchResult = tempFiles.filter((file) => {
                 return file.filename.includes(this.state.searchText) || file.filename === this.state.searchText;
@@ -84,8 +106,14 @@ class PrePageContent extends Component {
         });
     }
 
-    componentWillMount() {
-        this.setFilesToRender();
+    componentDidMount() {
+        firebase.database().ref().child('files').on('value', snap => {
+            var tempFiles  = [];
+            tempFiles = [...snap.val()];
+            this.setState({mainFilesObject: tempFiles, fetchedFiles: true}, () => {
+                this.setFilesToRender();
+            });
+        });
     }
 
     fileSetter(fileType, fileClass) {
@@ -179,38 +207,44 @@ class PrePageContent extends Component {
         return(
             <React.Fragment>
                 <SearchBar handlechange={e => this.handleOnSearchTextChange(e)} searchtext={this.state.searchText} />
-                 {!this.state.notFoundResults ? null : <Banner text={this.state.searchText} />}
-                <div className="page-content">    
-                    {
-                        this.state.filesToRender.map((content, index) => {
-                            return (
-                                <div className="grid-item" key={index}>
-                                    <div
-                                        className={this.state.showMenu[index] ? "icon-blue" : "icon"}
-                                        onDoubleClick={(e) => { this.handleDoubleClick(content.linkTo, e) }}
-                                        onContextMenu={(e) => { this.handleRightClick(e, index) }}
-                                    >
-                                        {this.fileSetter(content.type, content.class)}
-                                    </div>
-                                    <span className="file-name">{content.filename}</span>
-                                        <RightClickMenu 
-                                            show={this.state.showMenu[index]}
-                                            fileName={content.filename}
-                                            fileType={content.type}
-                                            fileSize={content.size}
-                                            fileClass={content.class}
-                                            fileCreatorName={content.creatorName}
-                                            fileCreatedDate={content.createdDate}
-                                            linkTo={content.linkTo} 
-                                        />
-                                </div>
-                            )
-                        })
-                    }
-                    <div className="grid-item">
-                        <AddNewFileFolder />
-                    </div>
-                </div>
+                {this.state.fetchedFiles ? (
+                    <React.Fragment>
+                    {!this.state.notFoundResults ? null : <Banner text={this.state.searchText} />}
+                        <div className="page-content">    
+                            {
+                                this.state.filesToRender.map((content, index) => {
+                                    return (
+                                        <div className="grid-item" key={index}>
+                                            <div
+                                                className={this.state.showMenu[index] ? "icon-blue" : "icon"}
+                                                onDoubleClick={(e) => { this.handleDoubleClick(content.linkTo, e) }}
+                                                onContextMenu={(e) => { this.handleRightClick(e, index) }}
+                                            >
+                                                {this.fileSetter(content.type, content.class)}
+                                            </div>
+                                            <span className="file-name">{content.filename}</span>
+                                                <RightClickMenu 
+                                                    show={this.state.showMenu[index]}
+                                                    fileName={content.filename}
+                                                    fileType={content.type}
+                                                    fileSize={content.size}
+                                                    fileClass={content.class}
+                                                    fileCreatorName={content.creatorName}
+                                                    fileCreatedDate={content.createdDate}
+                                                    linkTo={content.linkTo} 
+                                                />
+                                        </div>
+                                    )
+                                })
+                            }
+                            <div className="grid-item">
+                                <AddNewFileFolder addFile={this.addToFiles} />
+                            </div>
+                        </div>
+                </React.Fragment>
+            )
+                : <Fallback />
+            }
             </React.Fragment>
         );
     }
