@@ -1,0 +1,205 @@
+{
+    "files": [
+        {
+        "filesAndFoldersPresent": [
+    {
+        "createdDate": "21st Jan, 2018",
+        "creatorName": "Sameer",
+        "filename": "pictures",
+        "linkTo": "/pictures",
+        "size": "609kB",
+        "type": "folder"
+    }, {
+        "createdDate": "15th Oct, 2018",
+        "creatorName": "Sameer",
+        "filename": "videos",
+        "linkTo": "/videos",
+        "size": "209kB",
+        "type": "folder"
+    }, {
+        "createdDate": "2nd Feb, 2019",
+        "creatorName": "Sameer",
+        "filename": "docs",
+        "linkTo": "/docs",
+        "size": "512kB",
+        "type": "folder"
+    }, {
+        "class": "image",
+        "createdDate": "23rd Nov, 2018",
+        "creatorName": "Sameer",
+        "filename": "b.jpg",
+        "size": "24kB",
+        "type": "file"
+    }, {
+        "createdDate": "12th Mar, 2019",
+        "creatorName": "Sameer",
+        "filename": "california",
+        "linkTo": "/california",
+        "size": "12GB",
+        "type": "folder"
+    }, {
+        "class": "file",
+        "createdDate": "22nd Sep, 2018",
+        "creatorName": "Sameer",
+        "filename": "c.jsx",
+        "size": "18kB",
+        "type": "file"
+    }, {
+        "class": "pdf",
+        "createdDate": "12th Aug, 2017",
+        "creatorName": "Sameer",
+        "filename": "a.pdf",
+        "size": "3kB",
+        "type": "file"
+    }],
+    "path": "/"
+    }, {
+    "filesAndFoldersPresent": [{
+        "class": "image",
+        "createdDate": "3rd Nov, 2018",
+        "creatorName": "Sameer",
+        "filename": "pic1.jpg",
+        "size": "254kB",
+        "type": "file"
+    }, {
+        "class": "image",
+        "createdDate": "7th Apr, 2018",
+        "creatorName": "Sameer",
+        "filename": "pic2.jpg",
+        "size": "908kB",
+        "type": "file"
+    }],
+    "path": "/pictures"
+}, {
+    "filesAndFoldersPresent": [{
+        "class": "video",
+        "createdDate": "3rd Nov, 2018",
+        "creatorName": "Sameer",
+        "filename": "vid1.mp4",
+        "size": "54kB",
+        "type": "file"
+    }, {
+        "class": "video",
+        "createdDate": "7th Apr, 2018",
+        "creatorName": "Sameer",
+        "filename": "vid2.mp4",
+        "size": "921kB",
+        "type": "file"
+    }, {
+        "class": "video",
+        "createdDate": "19th Jul, 2018",
+        "creatorName": "Sameer",
+        "filename": "vid3.mp4",
+        "size": "524kB",
+        "type": "file"
+    }],
+    "path": "/videos"
+}, {
+    "filesAndFoldersPresent": [{
+        "createdDate": "25th Aug, 2018",
+        "creatorName": "Sameer",
+        "filename": "work",
+        "linkTo": "/docs/work",
+        "size": "32kB",
+        "type": "folder"
+    }, {
+        "class": "pdf",
+        "createdDate": "3rd Nov, 2018",
+        "creatorName": "Sameer",
+        "filename": "c.pdf",
+        "size": "254kB",
+        "type": "file"
+    }, {
+        "class": "doc",
+        "createdDate": "7th Apr, 2018",
+        "creatorName": "Sameer",
+        "filename": "d.docx",
+        "size": "908kB",
+        "type": "file"
+    }],
+    "path": "/docs"
+}, {
+    "filesAndFoldersPresent": [{
+        "class": "pdf",
+        "createdDate": "3rd Nov, 2018",
+        "creatorName": "Sameer",
+        "filename": "e.pdf",
+        "size": "254kB",
+        "type": "file"
+    }, {
+        "class": "file",
+        "createdDate": "7th Apr, 2018",
+        "creatorName": "Sameer",
+        "filename": "f.ts",
+        "size": "908kB",
+        "type": "file"
+    }, {
+        "createdDate": "18th Jun, 2018",
+        "creatorName": "Sameer",
+        "filename": "leisure",
+        "linkTo": "/docs/work/leisure",
+        "size": "23kB",
+        "type": "folder"
+    }],
+    "path": "/docs/work"
+}, {
+    "filesAndFoldersPresent": [{
+        "class": "image",
+        "createdDate": "14th Mar, 2019",
+        "creatorName": "Sameer",
+        "filename": "image1.jpg",
+        "size": "12kB",
+        "type": "file"
+    }],
+    "path": "/california"
+}, {
+    "filesAndFoldersPresent": [{
+        "class": "audio",
+        "createdDate": "8th Mar, 2019",
+        "creatorName": "Sameer",
+        "filename": "flames.mp3",
+        "size": "4.56mB",
+        "type": "file"
+    }],
+    "path": "/docs/work/leisure"
+}],
+"routes": [{
+    "exact": true,
+    "folderName": "Root",
+    "foldersPresent": true,
+    "path": "/"
+}, {
+    "exact": false,
+    "folderName": "Pictures",
+    "foldersPresent": false,
+    "path": "/pictures"
+}, {
+    "exact": false,
+    "folderName": "Videos",
+    "foldersPresent": false,
+    "path": "/videos"
+}, {
+    "exact": true,
+    "folderName": "Docs",
+    "foldersPresent": true,
+    "nested": false,
+    "path": "/docs"
+}, {
+    "exact": true,
+    "folderName": "Work",
+    "foldersPresent": true,
+    "nested": true,
+    "path": "/docs/work"
+}, {
+    "exact": false,
+    "folderName": "leisure",
+    "foldersPresent": false,
+    "nested": true,
+    "path": "/docs/work/leisure"
+}, {
+    "exact": false,
+    "folderName": "california",
+    "folderPresent": false,
+    "path": "/california"
+}]
+}

@@ -66,12 +66,10 @@ class CurrentPageLocation extends Component {
     }
 
     componentWillMount() {
-        // Just so that I have the links to be present before the render()
         this.listAndLinkMaker();
     }
 
     render() {
-        //const { match, history, location } = this.props;
         return (
             <React.Fragment>
                 <div className="overall">

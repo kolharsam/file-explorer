@@ -29,7 +29,7 @@ class PrePageContent extends Component {
             searchText: '',
             fetchedFiles: false,
             notFoundResults: false,
-            indexOfCurrentPage: undefined
+            indexOfCurrentPage: undefined,
         }
 
         this.handleOnSearchTextChange = this.handleOnSearchTextChange.bind(this);
@@ -200,7 +200,9 @@ class PrePageContent extends Component {
     render() {
         return(
             <React.Fragment>
-                <SearchBar handlechange={e => this.handleOnSearchTextChange(e)} searchtext={this.state.searchText} />
+                {this.state.filesToRender.length === 1 && this.state.searchText === '' ? null : 
+                    <SearchBar handlechange={e => this.handleOnSearchTextChange(e)} searchtext={this.state.searchText} />
+                }
                 {this.state.fetchedFiles ? (
                     <React.Fragment>
                     {!this.state.notFoundResults ? null : <Banner text={this.state.searchText} />}
@@ -225,7 +227,9 @@ class PrePageContent extends Component {
                                                     fileClass={content.class}
                                                     fileCreatorName={content.creatorName}
                                                     fileCreatedDate={content.createdDate}
-                                                    linkTo={content.linkTo} 
+                                                    linkTo={content.linkTo}
+                                                    path={this.state.curPath}
+                                                    filesObject={this.state.mainObject} 
                                                 />
                                         </div>
                                     )

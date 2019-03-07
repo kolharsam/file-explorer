@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import firebase from '../../firebase';
 
 import FileInfoPopup from './FileInfo';
 
@@ -13,28 +14,112 @@ class RightClickMenu extends Component {
 
         this.state = {
             showInfoPopup: false,
-            showDeletePopup: false,
+            showDeletePopup: false
         }
 
         this.onClickOpen = this.onClickOpen.bind(this);
         this.toggleInfoPopup = this.toggleInfoPopup.bind(this);
         this.toggleDeletePopup = this.toggleDeletePopup.bind(this);
+        this.confirmDeleteClicked = this.confirmDeleteClicked.bind(this);
     }
 
-    onClickOpen () {
-        this.setState({ showInfoPopup: !this.state.showInfoPopup }, () => { console.log('ad') });
+    onClickOpen (e) {
+        e.preventDefault();
+        this.setState({ showInfoPopup: !this.state.showInfoPopup });
     }
 
     toggleInfoPopup (e) {
         e.preventDefault();
 
-        this.setState({showInfoPopup: !this.state.showInfoPopup}, () => {console.log('showing information')});
+        this.setState({showInfoPopup: !this.state.showInfoPopup});
     }
 
     toggleDeletePopup (e) {
         e.preventDefault();
 
-        this.setState({showDeletePopup: !this.state.showDeletePopup}, () => {console.log('warning for delete')});
+        this.setState({showDeletePopup: !this.state.showDeletePopup});
+    }
+
+    confirmDeleteClicked (e) {
+        e.preventDefault();
+
+        this.setState({ showDeletePopup: !this.state.showDeletePopup
+        }, () => {
+
+            let tempFiles = this.props.filesObject.files;
+            let tempRoutes = this.props.filesObject.routes;
+
+            if (this.props.fileType === 'file') {
+
+                let currentElement = [];
+                let iterator = 0, iterator2 = 0;
+
+                for (iterator = 0; iterator < tempFiles.length; iterator++) {
+                    if (tempFiles[iterator].path === this.props.path) {
+                        currentElement = tempFiles[iterator].filesAndFoldersPresent;
+                        break;
+                    }
+                }
+
+                let tempFilesAndFoldersPresent = [];
+
+                for (iterator2 = 0; iterator2 < currentElement.length; iterator2++) {
+                    if (currentElement[iterator2].filename !== this.props.fileName) {
+                        tempFilesAndFoldersPresent.push(currentElement[iterator2]);
+                    }
+                }
+
+                if (tempFilesAndFoldersPresent.length === 0) {
+                    tempFilesAndFoldersPresent.push({filename: 'No Files Present'});
+                } 
+
+                tempFiles[iterator].filesAndFoldersPresent = tempFilesAndFoldersPresent;
+
+            } else if (this.props.fileType === 'folder') {
+
+                let replaceFiles = tempFiles.filter((files) => {
+                    let file;
+                    if (files.path !== this.props.linkTo) {
+                        file = files;
+                    }
+                    return file;
+                });
+
+                let iter = 0;
+
+                for (iter=0; iter < replaceFiles.length; iter++) {
+                    if (replaceFiles[iter].path === this.props.path) {
+                        break;
+                    }
+                }
+
+                let newTempArr = replaceFiles[iter].filesAndFoldersPresent.filter(file => {
+                    let file2;
+                    if (file.filename !== this.props.fileName) {
+                        file2 = file;
+                    }
+                    return file2;
+                }); 
+
+                replaceFiles[iter].filesAndFoldersPresent = newTempArr;
+
+                let replaceRoutes = tempRoutes.filter((route) => {
+                    let rt;
+                    if (!route.path.includes(this.props.linkTo)) {
+                        rt = route;
+                    }
+                    return rt;
+                });
+
+                tempFiles = replaceFiles;
+                tempRoutes = replaceRoutes;
+
+            } else {
+                alert('File Type unknown. Could not delete file.');
+            }
+ 
+            firebase.database().ref().set({files: tempFiles, routes: tempRoutes});
+        });
     }
     
     render () {
@@ -54,7 +139,7 @@ class RightClickMenu extends Component {
                                             </div>
                                         </Link> 
                                     :   
-                                        <div className="option" onClick={this.onClickOpen}>
+                                        <div className="option" onClick={e => this.onClickOpen(e)}>
                                             <div className="menu-text">
                                                 Open
                                             </div>
@@ -84,6 +169,10 @@ class RightClickMenu extends Component {
 
                     <DeletePopup
                         show={this.state.showDeletePopup}
+                        filename={this.props.fileName}
+                        filetype={this.props.fileType}
+                        confirmDelete={this.confirmDeleteClicked}
+                        path={this.props.path}
                         closePopup={this.toggleDeletePopup}
                     />
             </React.Fragment> 
