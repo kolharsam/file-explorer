@@ -128,7 +128,7 @@ button::-moz-focus-inner {
     border: 1px solid #DDE0E4;
     border-radius: 8px;
     font-size: 14px;
-    color: #AFB2B6;
+    color: #000;
     padding-left: 16px;
     width: 220px;
     height: 40px;

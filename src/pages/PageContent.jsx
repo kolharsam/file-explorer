@@ -21,6 +21,7 @@ class PrePageContent extends Component {
         super(props);
 
         this.state = {
+            mainObject: undefined,
             mainFilesObject: [],
             curPath: props.location.pathname,
             filesToRender: [],
@@ -42,40 +43,33 @@ class PrePageContent extends Component {
         // to handle Right Click
         this.handleRightClick = this.handleRightClick.bind(this);
         this.handleClickElsewhere = this.handleClickElsewhere.bind(this);
-
-        this.addToFiles = this.addToFiles.bind(this);
-    }
-
-    addToFiles = (path, newObject) => {
-        let iterator = 0;
-
-        let tempFiles = this.state.mainFilesObject;
-
-        for (iterator = 0; iterator < tempFiles.length; iterator++) {
-            if (tempFiles[iterator].path === path) {
-                break;
-            }
-        }
-
-        tempFiles[iterator].filesAndFoldersPresent.push(newObject);
-
-        this.setState({ mainFilesObject: [...tempFiles] }, () => {
-            console.log('Added a New File' + this.state.mainFilesObject[iterator]);
-        });
     }
 
     setFilesToRender() {
         let currentElement = {};
+        let iterator = 0;
 
-        for (let iterator = 0; iterator < this.state.mainFilesObject.length; iterator++) {
+        for (iterator = 0; iterator < this.state.mainFilesObject.length; iterator++) {
             if (this.state.mainFilesObject[iterator].path === this.state.curPath) {
                 currentElement = this.state.mainFilesObject[iterator];
                 break;
             }
         }
-
+        
         this.setState({
             filesToRender: [...currentElement.filesAndFoldersPresent]
+        }, () => {
+            if (this.state.filesToRender[0].filename === 'No Files Present' && this.state.filesToRender.length > 1) {
+                let tempFiles = this.state.mainObject.files;
+                let tempFilesArray = this.state.mainObject.files[iterator].filesAndFoldersPresent;
+                tempFilesArray.shift();
+                tempFiles[iterator].filesAndFoldersPresent = tempFilesArray;
+                let tempRoutes = this.state.mainObject.routes;
+
+                firebase.database().ref().set({
+                    files: tempFiles, routes: tempRoutes
+                });
+            }
         });
     }
 
@@ -107,10 +101,10 @@ class PrePageContent extends Component {
     }
 
     componentDidMount() {
-        firebase.database().ref().child('files').on('value', snap => {
-            var tempFiles  = [];
-            tempFiles = [...snap.val()];
-            this.setState({mainFilesObject: tempFiles, fetchedFiles: true}, () => {
+        firebase.database().ref().on('value', snap => {
+            var tempObj = snap.val();
+            var tempFiles = tempObj.files;
+            this.setState({mainObject: tempObj, mainFilesObject: tempFiles, fetchedFiles: true}, () => {
                 this.setFilesToRender();
             });
         });
@@ -124,29 +118,27 @@ class PrePageContent extends Component {
         } else if (fileType === 'file') { // although it is obvious.
             switch (fileClass) {
                 case 'image':
-                    returnIcon = (<Octicon icon={FileMedia} height={72} width={51} />);
+                    returnIcon = (<Octicon icon={FileMedia} height={58} width={51} />);
                     break;
                 case 'video':
-                    returnIcon = (<Octicon icon={FileMedia} height={72} width={51} />);
+                    returnIcon = (<Octicon icon={FileMedia} height={60} width={51} />);
                     break;
                 case 'doc':
-                    returnIcon = (<Octicon icon={File} height={72} width={51} />);
+                    returnIcon = (<Octicon icon={File} height={60} width={51} />);
                     break;
                 case 'text':
-                    returnIcon = (<Octicon icon={File} height={72} width={51} />);
+                    returnIcon = (<Octicon icon={File} height={60} width={51} />);
                     break;
                 case 'pdf':
-                    returnIcon = (<Octicon icon={FilePdf} height={72} width={51} />);
+                    returnIcon = (<Octicon icon={FilePdf} height={60} width={51} />);
                     break;
                 case 'audio':
-                    returnIcon = (<Octicon icon={FileMedia} height={72} width={51} />);
+                    returnIcon = (<Octicon icon={FileMedia} height={60} width={51} />);
                     break;
                 default:
-                    returnIcon = (<Octicon icon={FileCode} height={72} width={51} />);
+                    returnIcon = (<Octicon icon={FileCode} height={60} width={51} />);
                     break;
             }
-        } else {
-            alert('Error: Some unknown file type.');
         }
 
         if (returnIcon === undefined) {
@@ -210,8 +202,8 @@ class PrePageContent extends Component {
                 {this.state.fetchedFiles ? (
                     <React.Fragment>
                     {!this.state.notFoundResults ? null : <Banner text={this.state.searchText} />}
-                        <div className="page-content">    
-                            {
+                        <div className="page-content"> 
+                            {    
                                 this.state.filesToRender.map((content, index) => {
                                     return (
                                         <div className="grid-item" key={index}>
@@ -238,7 +230,7 @@ class PrePageContent extends Component {
                                 })
                             }
                             <div className="grid-item">
-                                <AddNewFileFolder addFile={this.addToFiles} />
+                                <AddNewFileFolder files={this.state.mainObject} />
                             </div>
                         </div>
                 </React.Fragment>

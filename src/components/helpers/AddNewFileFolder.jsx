@@ -31,7 +31,7 @@ class AddNewFileFolder extends React.Component {
             <div className="app">
                 <img style={{cursor: 'pointer', zIndex: '-1', marginTop: '15px'}} src={addImage} alt="" onClick={this.togglePopup} />
                 {this.state.showPopup ? (
-                    <AddFileOrFolder text="Create File" closePopup={this.togglePopup} addToFiles={this.props.addFile} />
+                    <AddFileOrFolder closePopup={this.togglePopup} files={this.props.files} />
                 ) : null}
             </div>
         );

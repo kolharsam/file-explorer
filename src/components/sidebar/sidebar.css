@@ -48,6 +48,10 @@
     padding-top: 12px;
 }
 
+.sidebar-item-text::first-letter {
+    text-transform: uppercase;
+}
+
 .sidebar-item-inner-text {
     font-size: 16px;
     font-family: inherit;

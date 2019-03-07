@@ -19,9 +19,7 @@ class Sidebar extends Component {
         firebase.database().ref().child('routes').on('value', snap => {
             temp = snap.val();
             temp.shift();
-            this.setState({mainRoutes: temp}, () => {
-                console.log(this.state.mainRoutes);
-            });
+            this.setState({mainRoutes: temp});
         });
     }
 
@@ -30,20 +28,20 @@ class Sidebar extends Component {
             <React.Fragment>
                 <div className="sidebar">
                     <p className="font-size-12">Root</p>
-                    <div className="sidebar-menu">
-                        {
-                            this.state.mainRoutes.map((route, index) => {
-                                return (
-                                    <Link to={route.path} style={{ textDecoration: 'none' }} key={index}>
-                                        <div className={route.nested === true ? "sidebar-item inner-item" : "sidebar-item"}>
-                                            {route.nested ? <div className="vert-line"></div> : null}
-                                            <p className={route.nested ? "sidebar-item-inner-text" : "sidebar-item-text"}>{route.folderName}</p>
-                                        </div>
-                                    </Link>
-                                );
-                            })
-                        }
-                    </div>
+                        <div className="sidebar-menu">
+                            {
+                                this.state.mainRoutes.map((route, index) => {
+                                    return (
+                                        <Link to={route.path} style={{ textDecoration: 'none' }} key={index}>
+                                            <div className={route.nested === true ? "sidebar-item inner-item" : "sidebar-item"}>
+                                                {route.nested ? <div className="vert-line"></div> : null}
+                                                <p className={route.nested ? "sidebar-item-inner-text" : "sidebar-item-text"}>{route.folderName}</p>
+                                            </div>
+                                        </Link>
+                                    );
+                                })
+                            }
+                        </div>
                 </div>
             </React.Fragment>
         );

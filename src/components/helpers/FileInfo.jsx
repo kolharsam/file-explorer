@@ -73,7 +73,7 @@ class FileInfoPopup extends React.Component {
                                 {this.props.filecreator}
                             </span>
                             <span className="identifier">
-                                Creator Date:
+                                Created Date:
                             </span>
                             <span className="id_value">
                                 {this.props.filecreated}
