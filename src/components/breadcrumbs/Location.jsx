@@ -23,7 +23,23 @@ class CurrentPageLocation extends Component {
         let path = this.state.path.toString().split("/");
         path.shift();
 
-        this.setState({listItems: [...path]});
+        let tempList = [];
+        let tempLink = '';
+
+        for(let iterator=0;iterator<path.length;iterator++) {
+            let tempObj = {};
+            tempObj.name = path[iterator];
+            tempLink += path[iterator];
+            tempObj.link = tempLink;
+
+            if (iterator !== path.length - 1) {
+                tempLink += '/';
+            }
+
+            tempList[iterator] = tempObj;
+        }
+
+        this.setState({listItems: [...tempList]}, () => console.log(this.state.listItems));
         
         // this part of the top-link for the arrow next to the breadcrumbs.
         let topLink = '/';
@@ -36,12 +52,7 @@ class CurrentPageLocation extends Component {
         }
         
         if (path.length !== 0) {
-            // path.forEach((link) => {
-            //     topLink += link;     // not using this as it gives a TypeError: Invalid attempt to spread non-iterable instance when rendering the required icons for the page.
-            //     topLink += '/'
-            // });
-
-            for(let iterable = 0;iterable<path.length;iterable++) {
+            for(let iterable = 0;iterable < path.length;iterable++) {
                 
                 topLink += path[iterable];
                 
@@ -74,7 +85,7 @@ class CurrentPageLocation extends Component {
                         {this.state.listItems.map((location, index) => {
                             return (
                                 <div className="list-item" key={index}>
-                                    <Link to={"/" + location} className="links">{location}</Link>
+                                    <Link to={"/" + location.link} className={this.state.path === ("/" + location.link) ? "links-black" : "links"}>{location.name}</Link>
                                 </div>
                             );
                         })}

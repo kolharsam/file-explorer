@@ -60,6 +60,10 @@
     float: left;
 }
 
+.sidebar-item-inner-text::first-letter {
+    text-transform: uppercase;
+}
+
 .sidebar-item-extend {
     float: right;
     background-color: inherit;

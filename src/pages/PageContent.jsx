@@ -29,6 +29,7 @@ class PrePageContent extends Component {
             searchText: '',
             fetchedFiles: false,
             notFoundResults: false,
+            indexOfCurrentPage: undefined
         }
 
         this.handleOnSearchTextChange = this.handleOnSearchTextChange.bind(this);
@@ -57,7 +58,8 @@ class PrePageContent extends Component {
         }
         
         this.setState({
-            filesToRender: [...currentElement.filesAndFoldersPresent]
+            filesToRender: [...currentElement.filesAndFoldersPresent],
+            indexOfCurrentPage: iterator
         }, () => {
             if (this.state.filesToRender[0].filename === 'No Files Present' && this.state.filesToRender.length > 1) {
                 let tempFiles = this.state.mainObject.files;
@@ -74,10 +76,10 @@ class PrePageContent extends Component {
     }
 
     changeFilesToRender () {
-        var searchResult = [];
+        let searchResult = [];
 
         if (this.state.searchText.length > 0) {
-            let tempFiles = this.state.filesToRender;
+            let tempFiles = this.state.mainFilesObject[this.state.indexOfCurrentPage].filesAndFoldersPresent;
             
             searchResult = tempFiles.filter((file) => {
                 return file.filename.includes(this.state.searchText) || file.filename === this.state.searchText;
@@ -102,8 +104,8 @@ class PrePageContent extends Component {
 
     componentDidMount() {
         firebase.database().ref().on('value', snap => {
-            var tempObj = snap.val();
-            var tempFiles = tempObj.files;
+            let tempObj = snap.val();
+            let tempFiles = tempObj.files;
             this.setState({mainObject: tempObj, mainFilesObject: tempFiles, fetchedFiles: true}, () => {
                 this.setFilesToRender();
             });

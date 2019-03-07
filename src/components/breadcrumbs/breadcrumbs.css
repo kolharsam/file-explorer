@@ -20,7 +20,7 @@
     content: "/\00a0";
 }
 
-.links:nth-last-child(1) {
+.links-black {
     color: #000;
     text-decoration: none;
 }
