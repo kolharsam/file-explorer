@@ -5,6 +5,7 @@ This assignment was done using:
 1. React
 2. CSS3
 3. react-router-dom
+4. firebase (to mimic an API)
 
 ## The site is hosted on : [Link](https://smallcase-assignment.firebaseapp.com)
 
