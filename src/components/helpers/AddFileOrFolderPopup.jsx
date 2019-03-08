@@ -17,7 +17,7 @@ class PreAddFileOrFolder extends Component {
             fileCreator: '',
             fileSize: '',
             fileDate: '',
-            createClicked: false,
+            createClicked: 'Create',
             wholeObject: undefined
         }
 
@@ -181,8 +181,9 @@ class PreAddFileOrFolder extends Component {
 
         if (this.state.fileName === '' || this.state.fileSize === '' || this.state.fileCreator === '' || this.state.fileDate === '') {
             alert('Do not leave any incomplete fields.');
+            this.setState({createClicked: 'Create'});
         } else {
-
+            this.setState({createClicked: 'Created'});
             if (this.state.setToFileOrFolder) {
                 resObject.filename = this.state.fileName;
                 resObject.type = 'file';
@@ -235,7 +236,7 @@ class PreAddFileOrFolder extends Component {
                             <input className="input" type="text" placeholder={"Date (" + new Date(Date.now()).toLocaleDateString() + ")"} onChange={e => this.onChangeFileCreated(e)} />
                         </div>
                         <div>
-                            <button className="createBtn" onClick={e => this.onClickCreate(e)}>{this.state.createClicked ? "Created" : "Create"}</button>
+                            <button className="createBtn" onClick={e => this.onClickCreate(e)}>{this.state.createClicked}</button>
                         </div>
                     </div>
                 </div>
