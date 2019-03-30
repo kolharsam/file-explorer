@@ -39,4 +39,6 @@ npm run start
 
 Et Voila! The file explorer web UI in your preferred browser on served on ```localhost:3000```.
 
-Please make sure to leave all comments on ```kolhar730@gmail.com```.
+### What else is there left todo?
+
+- Nesting of folders is reflected on the sidebar.
