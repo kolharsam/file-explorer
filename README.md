@@ -1,6 +1,6 @@
 # smallcase-assignment
 
-This assignment was done using:
+What did I use?
 
 1. React
 2. CSS3
