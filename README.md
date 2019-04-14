@@ -1,4 +1,4 @@
-# smallcase-assignment
+# file-explorer in React + Firebase
 
 What did I use?
 
